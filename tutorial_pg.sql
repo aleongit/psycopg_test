@@ -84,12 +84,12 @@ ORDER BY
 	
 
 SELECT
-       first_name,
-       last_name
+	first_name,
+	last_name
 FROM
-       customer
+	customer
 ORDER BY
-       last_name DESC;
+	last_name DESC;
 	   
 	   
 SELECT
