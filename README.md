@@ -95,3 +95,4 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table-a
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-serial/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-sequences/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-identity-column/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-alter-table/
