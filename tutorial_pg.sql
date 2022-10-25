@@ -593,3 +593,55 @@ Operator	Equivalent
 !~~			NOT LIKE
 !~~*		NOT ILIKE
 */
+
+/* PostgreSQL IS NULL */
+
+CREATE TABLE contacts(
+    id SERIAL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(15),
+    PRIMARY KEY (id)
+);
+
+INSERT INTO contacts(first_name, last_name, email, phone)
+VALUES ('John','Doe','john.doe@example.com',NULL),
+    ('Lily','Bush','lily.bush@example.com','(408-234-2764)');
+
+-- incorrecte = NULL
+SELECT
+    id,
+    first_name,
+    last_name,
+    email,
+    phone
+FROM
+    contacts
+WHERE
+    phone = NULL;
+
+-- correcte IS NULL
+SELECT
+    id,
+    first_name,
+    last_name,
+    email,
+    phone
+FROM
+    contacts
+WHERE
+    phone IS NULL;
+	
+-- PostgreSQL IS NOT NULL operator
+
+SELECT
+    id,
+    first_name,
+    last_name,
+    email,
+    phone
+FROM
+    contacts
+WHERE
+    phone IS NOT NULL;
