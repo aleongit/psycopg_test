@@ -27,7 +27,7 @@ postgres=# GRANT ALL PRIVILEGES ON DATABASE test to usertest;
 GRANT
 ```
 
-## tutorial pg
+## Sample
 ```
 Load PostgreSQL Sample Database
 https://www.postgresqltutorial.com/postgresql-getting-started/load-postgresql-sample-database/
@@ -45,6 +45,8 @@ pg_restore -U postgres -d dvdrental C:\REIXAPPGO\sampledb\dvdrental.tar
 psql -U postgres
 \connect dvdrental
 ```
+
+### PostgreSQL Fundamentals
 
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-column-alias/
@@ -78,3 +80,9 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-any/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-all/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-exists/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-insert/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-insert-multiple-rows/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-update/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-update-join/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete-join/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-upsert/

@@ -1983,3 +1983,416 @@ WHERE
 ORDER BY
 	first_name,
 	last_name;
+
+/* PostgreSQL INSERT */
+/*
+INSERT INTO table_name(column1, column2, …)
+VALUES (value1, value2, …);
+
+The INSERT statement returns a command tag with the following form:
+INSERT oid count
+
+OID is an object identifier.
+PostgreSQL used the OID internally as a primary key for its system tables. 
+Typically, the INSERT statement returns OID with value 0. 
+The count is the number of rows that the INSERT statement inserted successfully.
+*/
+
+-- RETURNING clause
+/*
+The INSERT statement also has an optional RETURNING clause that returns the information of the inserted row.
+
+If you want to return the entire inserted row, you use an asterisk (*) after the RETURNING keyword:
+
+INSERT INTO table_name(column1, column2, …)
+VALUES (value1, value2, …)
+RETURNING *;
+
+If you want to return just some information of the inserted row, 
+you can specify one or more columns after the RETURNING clause.
+
+For example, the following statement returns the id of the inserted row:
+
+INSERT INTO table_name(column1, column2, …)
+VALUES (value1, value2, …)
+RETURNING id;
+
+To rename the returned value, you use the AS keyword followed by the name of the output. For example:
+
+INSERT INTO table_name(column1, column2, …)
+VALUES (value1, value2, …)
+RETURNING output_expression AS output_name;
+*/
+
+DROP TABLE IF EXISTS links;
+
+CREATE TABLE links (
+	id SERIAL PRIMARY KEY,
+	url VARCHAR(255) NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	description VARCHAR (255),
+        last_update DATE
+);
+
+-- 1) PostgreSQL INSERT – Inserting a single row into a table
+
+INSERT INTO links (url, name)
+VALUES('https://www.postgresqltutorial.com','PostgreSQL Tutorial');
+
+SELECT	* FROM links;
+
+-- 2) PostgreSQL INSERT – Inserting character string that contains a single quote
+/*
+If you want to insert a string that contains a single quote (') such as O'Reilly Media,
+you have to use an additional single quote (') to escape it. For example:
+*/
+
+INSERT INTO links (url, name)
+VALUES('http://www.oreilly.com','O''Reilly Media');
+
+-- 3) PostgreSQL INSERT – Inserting a date value
+/*
+To insert a date value into a column with the DATE type, you use the date in the format 'YYYY-MM-DD'.
+*/
+
+INSERT INTO links (url, name, last_update)
+VALUES('https://www.google.com','Google','2013-06-01');
+
+-- 4) PostgreSQL INSERT- Getting the last insert id
+
+INSERT INTO links (url, name)
+VALUES('http://www.postgresql.org','PostgreSQL') 
+RETURNING id;
+
+/* PostgreSQL INSERT Multiple Rows */
+/*
+INSERT INTO table_name (column_list)
+VALUES
+    (value_list_1),
+    (value_list_2),
+    ...
+    (value_list_n)
+RETURNING * | output_expression;
+*/
+
+INSERT INTO 
+    links (url, name)
+VALUES
+    ('https://www.google.com','Google'),
+    ('https://www.yahoo.com','Yahoo'),
+    ('https://www.bing.com','Bing');
+	
+SELECT * FROM links;
+
+-- returning rows
+INSERT INTO 
+    links(url,name, description)
+VALUES
+    ('https://duckduckgo.com/','DuckDuckGo','Privacy & Simplified Search Engine'),
+    ('https://swisscows.com/','Swisscows','Privacy safe WEB-search')
+RETURNING *;
+
+-- returning id
+INSERT INTO 
+    links(url,name, description)
+VALUES
+    ('https://www.searchencrypt.com/','SearchEncrypt','Search Encrypt'),
+    ('https://www.startpage.com/','Startpage','The world''s most private search engine')
+RETURNING id;
+
+/* PostgreSQL UPDATE */
+/*
+UPDATE table_name
+SET column1 = value1,
+    column2 = value2,
+    ...
+WHERE condition
+RETURNING * | output_expression AS output_name;
+*/
+
+DROP TABLE IF EXISTS courses;
+
+CREATE TABLE courses(
+	course_id serial primary key,
+	course_name VARCHAR(255) NOT NULL,
+	description VARCHAR(500),
+	published_date date
+);
+
+INSERT INTO 
+	courses(course_name, description, published_date)
+VALUES
+	('PostgreSQL for Developers','A complete PostgreSQL for Developers','2020-07-13'),
+	('PostgreSQL Admininstration','A PostgreSQL Guide for DBA',NULL),
+	('PostgreSQL High Performance',NULL,NULL),
+	('PostgreSQL Bootcamp','Learn PostgreSQL via Bootcamp','2013-07-11'),
+	('Mastering PostgreSQL','Mastering PostgreSQL in 21 Days','2012-06-30');
+	
+SELECT * FROM courses;
+
+-- 1) PostgreSQL UPDATE – updating one row
+
+UPDATE courses
+SET published_date = '2020-08-01' 
+WHERE course_id = 3;
+
+SELECT * FROM courses WHERE course_id = 3;
+
+-- 2) PostgreSQL UPDATE – updating a row and returning the updated row
+
+UPDATE courses
+SET published_date = '2020-07-01'
+WHERE course_id = 2
+RETURNING *;
+
+/* PostgreSQL UPDATE Join */
+/*
+Sometimes, you need to update data in a table based on values in another table. 
+In this case, you can use the PostgreSQL UPDATE join syntax as follows:
+
+UPDATE t1
+SET t1.c1 = new_value
+FROM t2
+WHERE t1.c2 = t2.c2;
+*/
+
+CREATE TABLE product_segment (
+    id SERIAL PRIMARY KEY,
+    segment VARCHAR NOT NULL,
+    discount NUMERIC (4, 2)
+);
+
+INSERT INTO 
+    product_segment (segment, discount)
+VALUES
+    ('Grand Luxury', 0.05),
+    ('Luxury', 0.06),
+    ('Mass', 0.1);
+
+CREATE TABLE product(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    price NUMERIC(10,2),
+    net_price NUMERIC(10,2),
+    segment_id INT NOT NULL,
+    FOREIGN KEY(segment_id) REFERENCES product_segment(id)
+);
+
+INSERT INTO 
+    product (name, price, segment_id) 
+VALUES 
+    ('diam', 804.89, 1),
+    ('vestibulum aliquet', 228.55, 3),
+    ('lacinia erat', 366.45, 2),
+    ('scelerisque quam turpis', 145.33, 3),
+    ('justo lacinia', 551.77, 2),
+    ('ultrices mattis odio', 261.58, 3),
+    ('hendrerit', 519.62, 2),
+    ('in hac habitasse', 843.31, 1),
+    ('orci eget orci', 254.18, 3),
+    ('pellentesque', 427.78, 2),
+    ('sit amet nunc', 936.29, 1),
+    ('sed vestibulum', 910.34, 1),
+    ('turpis eget', 208.33, 3),
+    ('cursus vestibulum', 985.45, 1),
+    ('orci nullam', 841.26, 1),
+    ('est quam pharetra', 896.38, 1),
+    ('posuere', 575.74, 2),
+    ('ligula', 530.64, 2),
+    ('convallis', 892.43, 1),
+    ('nulla elit ac', 161.71, 3);
+
+-- update
+UPDATE 
+    product p
+SET 
+    net_price = price - price * discount
+FROM 
+    product_segment s
+WHERE 
+    p.segment_id = s.id;
+
+SELECT * FROM product;
+
+/* PostgreSQL DELETE */
+/*
+DELETE FROM table_name
+WHERE condition
+RETURNING (select_list | *)
+*/
+
+DROP TABLE IF EXISTS links;
+
+CREATE TABLE links (
+    id serial PRIMARY KEY,
+    url varchar(255) NOT NULL,
+    name varchar(255) NOT NULL,
+    description varchar(255),
+    rel varchar(10),
+    last_update date DEFAULT now()
+);
+
+INSERT INTO  
+   links 
+VALUES 
+   ('1', 'https://www.postgresqltutorial.com', 'PostgreSQL Tutorial', 'Learn PostgreSQL fast and easy', 'follow', '2013-06-02'),
+   ('2', 'http://www.oreilly.com', 'O''Reilly Media', 'O''Reilly Media', 'nofollow', '2013-06-02'),
+   ('3', 'http://www.google.com', 'Google', 'Google', 'nofollow', '2013-06-02'),
+   ('4', 'http://www.yahoo.com', 'Yahoo', 'Yahoo', 'nofollow', '2013-06-02'),
+   ('5', 'http://www.bing.com', 'Bing', 'Bing', 'nofollow', '2013-06-02'),
+   ('6', 'http://www.facebook.com', 'Facebook', 'Facebook', 'nofollow', '2013-06-01'),
+   ('7', 'https://www.tumblr.com/', 'Tumblr', 'Tumblr', 'nofollow', '2013-06-02'),
+   ('8', 'http://www.postgresql.org', 'PostgreSQL', 'PostgreSQL', 'nofollow', '2013-06-02');
+
+SELECT * FROM links;
+
+-- 1) Using PostgreSQL DELETE to delete one row from the table
+
+DELETE FROM links
+WHERE id = 8;
+
+DELETE FROM links
+WHERE id = 10;
+
+-- 2) Using PostgreSQL DELETE to delete a row and return the deleted row
+
+DELETE FROM links
+WHERE id = 7
+RETURNING *;
+
+-- 3) Using PostgreSQL DELETE to delete multiple rows from the table
+
+DELETE FROM links
+WHERE id IN (6,5)
+RETURNING *;
+
+-- 4) Using PostgreSQL DELETE to delete all rows from the table
+DELETE FROM links;
+
+/* PostgreSQL DELETE JOIN */
+/*
+PostgreSQL doesn’t support the DELETE JOIN statement. 
+However, it does support the USING clause in the DELETE statement that provides similar functionality as the DELETE JOIN.
+
+DELETE FROM table_name1
+USING table_expression
+WHERE condition
+RETURNING returning_columns;
+
+. First, specify the table expression after the USING keyword. It can be one or more tables.
+. Then, use columns from the tables that appear in the USING clause in the WHERE clause for joining data.
+
+DELETE FROM t1
+USING t2
+WHERE t1.id = t2.id
+*/
+
+DROP TABLE IF EXISTS contacts;
+CREATE TABLE contacts(
+   contact_id serial PRIMARY KEY,
+   first_name varchar(50) NOT NULL,
+   last_name varchar(50) NOT NULL,
+   phone varchar(15) NOT NULL
+);
+
+DROP TABLE IF EXISTS blacklist;
+CREATE TABLE blacklist(
+    phone varchar(15) PRIMARY KEY
+);
+
+INSERT INTO contacts(first_name, last_name, phone)
+VALUES ('John','Doe','(408)-523-9874'),
+       ('Jane','Doe','(408)-511-9876'),
+       ('Lily','Bush','(408)-124-9221');
+
+INSERT INTO blacklist(phone)
+VALUES ('(408)-523-9874'),
+       ('(408)-511-9876');
+
+-- delete with USING
+DELETE FROM contacts 
+USING blacklist
+WHERE contacts.phone = blacklist.phone;
+
+-- delete join using a subquery (sql standard)
+DELETE FROM contacts
+WHERE phone IN (SELECT phone FROM blacklist);
+
+-- actualitzar fila si ja existeix
+/* PostgreSQL Upsert Using INSERT ON CONFLICT statement */
+/*
+In relational databases, the term upsert is referred to as merge.
+The idea is that when you insert a new row into the table, PostgreSQL will update the row if it already exists, 
+otherwise, it will insert the new row. 
+That is why we call the action is upsert (the combination of update or insert).
+
+To use the upsert feature in PostgreSQL, you use the INSERT ON CONFLICT statement as follows:
+
+INSERT INTO table_name(column_list) 
+VALUES(value_list)
+ON CONFLICT target action;
+
+PostgreSQL added the ON CONFLICT target action clause to the INSERT statement to support the upsert feature.
+
+In this statement, the target can be one of the following:
+. (column_name) – a column name.
+. ON CONSTRAINT constraint_name – where the constraint name could be the name of the UNIQUE constraint.
+. WHERE predicate – a WHERE clause with a predicate.
+
+The action can be one of the following:
+. DO NOTHING – means do nothing if the row already exists in the table.
+. DO UPDATE SET column_1 = value_1, .. WHERE condition – update some fields in the table.
+
+Notice that the ON CONFLICT clause is only available from PostgreSQL 9.5. 
+If you are using an earlier version, you will need a workaround to have the upsert feature.
+If you are also working with MySQL, you will find that the upsert feature is similar to the insert on duplicate key update statement in MySQL.
+*/
+
+DROP TABLE IF EXISTS customers;
+
+CREATE TABLE customers (
+	customer_id serial PRIMARY KEY,
+	name VARCHAR UNIQUE,
+	email VARCHAR NOT NULL,
+	active bool NOT NULL DEFAULT TRUE
+);
+
+INSERT INTO 
+    customers (name, email)
+VALUES 
+    ('IBM', 'contact@ibm.com'),
+    ('Microsoft', 'contact@microsoft.com'),
+    ('Intel', 'contact@intel.com');
+
+SELECT * FROM customers;
+
+/*
+Suppose Microsoft changes the contact email from contact@microsoft.com to hotline@microft.com, 
+we can update it using the UPDATE statement. 
+However, to demonstrate the upsert feature, we use the following INSERT ON CONFLICT statement:
+*/
+
+INSERT INTO customers (NAME, email)
+VALUES('Microsoft','hotline@microsoft.com') 
+ON CONFLICT ON CONSTRAINT customers_name_key 
+DO NOTHING;
+
+-- equivalent
+INSERT INTO customers (name, email)
+VALUES('Microsoft','hotline@microsoft.com') 
+ON CONFLICT (name) 
+DO NOTHING;
+
+-- concatenar email nou; email vell
+INSERT INTO customers (name, email)
+VALUES('Microsoft','hotline@microsoft.com') 
+ON CONFLICT (name) 
+DO 
+   UPDATE SET email = EXCLUDED.email || ';' || customers.email;
+  
+-- actualitzar email
+INSERT INTO customers (name, email)
+VALUES('Microsoft','hotline@microsoft.com') 
+ON CONFLICT (name) 
+DO 
+   UPDATE SET email = EXCLUDED.email
