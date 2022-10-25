@@ -50,7 +50,6 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-column-alias/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-order-by/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select-distinct/
-https://www.geekytidbits.com/postgres-distinct-on/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-where/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-limit/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-fetch/
@@ -68,3 +67,14 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-full-outer-joi
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-cross-join/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-natural-join/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-group-by/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-union/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-intersect/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-having/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-grouping-sets/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-cube/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-rollup/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-subquery/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-any/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-all/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-exists/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-insert/

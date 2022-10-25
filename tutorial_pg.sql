@@ -1064,4 +1064,922 @@ SELECT	* FROM products
 INNER JOIN categories USING (category_id);
 
 /* PostgreSQL GROUP BY */
+/*
+SELECT 
+   column_1, 
+   column_2,
+   ...,
+   aggregate_function(column_3)
+FROM 
+   table_name
+GROUP BY 
+   column_1,
+   column_2,
+   ...;
+*/
 
+-- 1) Using PostgreSQL GROUP BY without an aggregate function example
+/*
+In this case, the GROUP BY works like the DISTINCT clause that removes duplicate rows from the result set.
+*/
+SELECT
+   customer_id
+FROM
+   payment
+GROUP BY
+   customer_id;
+   
+-- 2) Using PostgreSQL GROUP BY with SUM() function example
+SELECT
+	customer_id,
+	SUM (amount)
+FROM
+	payment
+GROUP BY
+	customer_id;
+
+
+SELECT
+	customer_id,
+	SUM (amount)
+FROM
+	payment
+GROUP BY
+	customer_id
+ORDER BY
+	SUM (amount) DESC;
+
+-- 3) Using PostgreSQL GROUP BY clause with the JOIN clause
+SELECT
+	first_name || ' ' || last_name full_name,
+	SUM (amount) amount
+FROM
+	payment
+INNER JOIN customer USING (customer_id)    	
+GROUP BY
+	full_name
+ORDER BY amount DESC;
+
+-- 4) Using PostgreSQL GROUP BY with COUNT() function example
+SELECT
+	staff_id,
+	COUNT (payment_id)
+FROM
+	payment
+GROUP BY
+	staff_id;
+
+-- 5) Using PostgreSQL GROUP BY with multiple columns
+SELECT 
+	customer_id, 
+	staff_id, 
+	SUM(amount) 
+FROM 
+	payment
+GROUP BY 
+	staff_id, 
+	customer_id
+ORDER BY 
+    customer_id;
+
+-- 6) Using PostgreSQL GROUP BY clause with date column
+/*
+The payment_date is a timestamp column.
+To group payments by dates, you use the DATE() function to convert timestamps to dates first 
+and then group payments by the result date:
+*/
+SELECT 
+	DATE(payment_date) paid_date, 
+	SUM(amount) sum
+FROM 
+	payment
+GROUP BY
+	DATE(payment_date);
+	
+/* PostgreSQL UNION */
+/*
+The UNION operator combines result sets of two or more SELECT statements into a single result set.
+
+SELECT select_list_1
+FROM table_expresssion_1
+UNION
+SELECT select_list_2
+FROM table_expression_2
+
+To combine the result sets of two queries using the UNION operator, the queries must conform to the following rules:
+. The number and the order of the columns in the select list of both queries must be the same.
+. The data types must be compatible.
+
+The UNION operator removes all duplicate rows from the combined data set. 
+To retain the duplicate rows, you use the the UNION ALL instead.
+*/
+
+DROP TABLE IF EXISTS top_rated_films;
+CREATE TABLE top_rated_films(
+	title VARCHAR NOT NULL,
+	release_year SMALLINT
+);
+
+DROP TABLE IF EXISTS most_popular_films;
+CREATE TABLE most_popular_films(
+	title VARCHAR NOT NULL,
+	release_year SMALLINT
+);
+
+INSERT INTO 
+   top_rated_films(title,release_year)
+VALUES
+   ('The Shawshank Redemption',1994),
+   ('The Godfather',1972),
+   ('12 Angry Men',1957);
+
+INSERT INTO 
+   most_popular_films(title,release_year)
+VALUES
+   ('An American Pickle',2020),
+   ('The Godfather',1972),
+   ('Greyhound',2020);
+   
+SELECT * FROM top_rated_films;
+SELECT * FROM most_popular_films;
+ 
+-- 1) Simple PostgreSQL UNION example
+SELECT * FROM top_rated_films
+UNION
+SELECT * FROM most_popular_films;
+
+-- 2) PostgreSQL UNION ALL example (with duplicate rows)
+SELECT * FROM top_rated_films
+UNION ALL
+SELECT * FROM most_popular_films;
+
+-- 3) PostgreSQL UNION ALL with ORDER BY clause example
+SELECT * FROM top_rated_films
+UNION ALL
+SELECT * FROM most_popular_films
+ORDER BY title;
+
+/* PostgreSQL INTERSECT Operator */
+/*
+Like the UNION and EXCEPT operators, 
+the PostgreSQL INTERSECT operator combines result sets of two or more SELECT statements into a single result set.
+The INTERSECT operator returns any rows that are available in both result sets.
+
+SELECT select_list
+FROM A
+INTERSECT
+SELECT select_list
+FROM B;
+
+To use the INTERSECT operator, the columns that appear in the SELECT statements must follow the folowing rules:
+. The number of columns and their order in the SELECT clauses must be the same.
+. The data types of the columns must be compatible.
+*/
+
+SELECT *
+FROM most_popular_films 
+INTERSECT
+SELECT *
+FROM top_rated_films;
+
+/* PostgreSQL HAVING */
+/*
+The HAVING clause specifies a search condition for a group or an aggregate.
+The HAVING clause is often used with the GROUP BY clause to filter groups or aggregates based on a specified condition.
+
+SELECT
+	column1,
+	aggregate_function (column2)
+FROM
+	table_name
+GROUP BY
+	column1
+HAVING
+	condition;
+	
+HAVING vs. WHERE
+The WHERE clause allows you to filter rows based on a specified condition.
+However, the HAVING clause allows you to filter groups of rows according to a specified condition.
+In other words, the WHERE clause is applied to rows while the HAVING clause is applied to groups of rows.
+*/
+
+-- 1) Using PostgreSQL HAVING clause with SUM function example
+SELECT
+	customer_id,
+	SUM (amount)
+FROM
+	payment
+GROUP BY
+	customer_id;
+
+-- having
+SELECT
+	customer_id,
+	SUM (amount)
+FROM
+	payment
+GROUP BY
+	customer_id
+HAVING
+	SUM (amount) > 200;
+	
+-- 2) PostgreSQL HAVING clause with COUNT example
+SELECT
+	store_id,
+	COUNT (customer_id)
+FROM
+	customer
+GROUP BY
+	store_id
+	
+-- having
+SELECT
+	store_id,
+	COUNT (customer_id)
+FROM
+	customer
+GROUP BY
+	store_id
+HAVING
+	COUNT (customer_id) > 300;
+
+/* PostgreSQL GROUPING SETS */
+/*
+*/
+
+DROP TABLE IF EXISTS sales;
+CREATE TABLE sales (
+    brand VARCHAR NOT NULL,
+    segment VARCHAR NOT NULL,
+    quantity INT NOT NULL,
+    PRIMARY KEY (brand, segment)
+);
+
+INSERT INTO sales (brand, segment, quantity)
+VALUES
+    ('ABC', 'Premium', 100),
+    ('ABC', 'Basic', 200),
+    ('XYZ', 'Premium', 100),
+    ('XYZ', 'Basic', 300);
+
+-- without grouping sets
+SELECT
+    brand,
+    segment,
+    SUM (quantity)
+FROM
+    sales
+GROUP BY
+    brand,
+    segment
+
+UNION ALL
+
+SELECT
+    brand,
+    NULL,
+    SUM (quantity)
+FROM
+    sales
+GROUP BY
+    brand
+
+UNION ALL
+
+SELECT
+    NULL,
+    segment,
+    SUM (quantity)
+FROM
+    sales
+GROUP BY
+    segment
+
+UNION ALL
+
+SELECT
+    NULL,
+    NULL,
+    SUM (quantity)
+FROM
+    sales;
+
+/*
+This query generated a single result set with the aggregates for all grouping sets.
+
+Even though the above query works as you expected, it has two main problems.
+
+. First, it is quite lengthy.
+. Second, it has a performance issue because PostgreSQL has to scan the sales table separately for each query.
+
+To make it more efficient, PostgreSQL provides the GROUPING SETS clause which is the subclause of the GROUP BY clause.
+The GROUPING SETS allows you to define multiple grouping sets in the same query.
+
+SELECT
+    c1,
+    c2,
+    aggregate_function(c3)
+FROM
+    table_name
+GROUP BY
+    GROUPING SETS (
+        (c1, c2),
+        (c1),
+        (c2),
+        ()
+);
+*/
+
+SELECT
+    brand,
+    segment,
+    SUM (quantity)
+FROM
+    sales
+GROUP BY
+    GROUPING SETS (
+        (brand, segment),
+        (brand),
+        (segment),
+        ()
+    );
+
+/* Grouping function */
+/*
+The GROUPING() function accepts an argument which can be a column name or an expression:
+
+GROUPING( column_name | expression)
+
+The column_name or expression must match with the one specified in the GROUP BY clause.
+The GROUPING() function returns bit 0 if the argument is a member of the current grouping set and 1 otherwise.
+*/
+
+SELECT
+	GROUPING(brand) grouping_brand,
+	GROUPING(segment) grouping_segment,
+	brand,
+	segment,
+	SUM (quantity)
+FROM
+	sales
+GROUP BY
+	GROUPING SETS (
+		(brand),
+		(segment),
+		()
+	)
+ORDER BY
+	brand,
+	segment;
+	
+-- with having
+SELECT
+	GROUPING(brand) grouping_brand,
+	GROUPING(segment) grouping_segment,
+	brand,
+	segment,
+	SUM (quantity)
+FROM
+	sales
+GROUP BY
+	GROUPING SETS (
+		(brand),
+		(segment),
+		()
+	)
+HAVING GROUPING(brand) = 0	
+ORDER BY
+	brand,
+	segment;
+	
+/* PostgreSQL CUBE */
+/*
+PostgreSQL CUBE is a subclause of the GROUP BY clause.
+The CUBE allows you to generate multiple grouping sets.
+
+A grouping set is a set of columns to which you want to group. 
+
+SELECT
+    c1,
+    c2,
+    c3,
+    aggregate (c4)
+FROM
+    table_name
+GROUP BY
+    CUBE (c1, c2, c3);
+
+. First, specify the CUBE subclause in the the GROUP BY clause of the SELECT statement.
+. Second, in the select list, specify the columns (dimensions or dimension columns) 
+which you want to analyze and aggregation function expressions.
+. Third, in the GROUP BY clause, specify the dimension columns within the parentheses of the CUBE subclause.
+
+The query generates all possible grouping sets based on the dimension columns specified in CUBE. 
+The CUBE subclause is a short way to define multiple grouping sets so the following are equivalent:
+
+CUBE(c1,c2,c3) 
+
+GROUPING SETS (
+    (c1,c2,c3), 
+    (c1,c2),
+    (c1,c3),
+    (c2,c3),
+    (c1),
+    (c2),
+    (c3), 
+    ()
+ ) 
+
+In general, if the number of columns specified in the CUBE is n, then you will have 2n combinations.
+
+PostgreSQL allows you to perform a partial cube to reduce the number of aggregates calculated. 
+
+SELECT
+    c1,
+    c2,
+    c3,
+    aggregate (c4)
+FROM
+    table_name
+GROUP BY
+    c1,
+    CUBE (c1, c2);
+*/
+
+-- cube
+SELECT
+    brand,
+    segment,
+    SUM (quantity)
+FROM
+    sales
+GROUP BY
+    CUBE (brand, segment)
+ORDER BY
+    brand,
+    segment;
+
+-- partial cube
+SELECT
+    brand,
+    segment,
+    SUM (quantity)
+FROM
+    sales
+GROUP BY
+    brand,
+    CUBE (segment)
+ORDER BY
+    brand,
+    segment;
+	
+/* PostgreSQL ROLLUP */
+/*
+The PostgreSQL ROLLUP is a subclause of the GROUP BY clause that offers a shorthand for defining multiple grouping sets. 
+A grouping set is a set of columns by which you group.
+
+Different from the CUBE subclause, ROLLUP does not generate all possible grouping sets based on the specified columns. 
+It just makes a subset of those.
+
+The ROLLUP assumes a hierarchy among the input columns and generates all grouping sets that make sense considering the hierarchy.
+This is the reason why ROLLUP is often used to generate the subtotals and the grand total for reports.
+
+For example, the CUBE (c1,c2,c3) makes all eight possible grouping sets:
+
+(c1, c2, c3)
+(c1, c2)
+(c2, c3)
+(c1,c3)
+(c1)
+(c2)
+(c3)
+()
+
+However, the ROLLUP(c1,c2,c3) generates only four grouping sets, assuming the hierarchy c1 > c2 > c3 as follows:
+
+(c1, c2, c3)
+(c1, c2)
+(c1)
+()
+
+A common use of  ROLLUP is to calculate the aggregations of data by year, month, and date, 
+considering the hierarchy year > month > date
+
+SELECT
+    c1,
+    c2,
+    c3,
+    aggregate(c4)
+FROM
+    table_name
+GROUP BY
+    ROLLUP (c1, c2, c3);
+
+
+It is also possible to do a partial roll up to reduce the number of subtotals generated.
+
+SELECT
+    c1,
+    c2,
+    c3,
+    aggregate(c4)
+FROM
+    table_name
+GROUP BY
+    c1, 
+    ROLLUP (c2, c3);
+*/
+
+SELECT
+    brand,
+    segment,
+    SUM (quantity)
+FROM
+    sales
+GROUP BY
+    ROLLUP (brand, segment)
+ORDER BY
+    brand,
+    segment;
+	
+-- In this example, the hierarchy is brand > segment.
+SELECT
+    segment,
+    brand,
+    SUM (quantity)
+FROM
+    sales
+GROUP BY
+    ROLLUP (segment, brand)
+ORDER BY
+    segment,
+    brand;
+
+-- In this case, the hierarchy is the segment > brand
+SELECT
+    segment,
+    brand,
+    SUM (quantity)
+FROM
+    sales
+GROUP BY
+    ROLLUP (segment, brand)
+ORDER BY
+    segment,
+    brand;
+
+-- partial roll-up
+SELECT
+    segment,
+    brand,
+    SUM (quantity)
+FROM
+    sales
+GROUP BY
+    segment,
+    ROLLUP (brand)
+ORDER BY
+    segment,
+    brand;
+	
+-- with dates
+SELECT
+    EXTRACT (YEAR FROM rental_date) y,
+    EXTRACT (MONTH FROM rental_date) M,
+    EXTRACT (DAY FROM rental_date) d,
+    COUNT (rental_id)
+FROM
+    rental
+GROUP BY
+    ROLLUP (
+        EXTRACT (YEAR FROM rental_date),
+        EXTRACT (MONTH FROM rental_date),
+        EXTRACT (DAY FROM rental_date)
+    );
+
+/* PostgreSQL Subquery */
+/* the PostgreSQL subquery that allows you to construct complex queries */
+
+-- 1
+SELECT
+	AVG (rental_rate)
+FROM
+	film;
+
+-- 2
+SELECT
+	film_id,
+	title,
+	rental_rate
+FROM
+	film
+WHERE
+	rental_rate > 2.98;
+
+/*
+The code is not so elegant, which requires two steps. 
+We want a way to pass the result of the first query to the second query in one query. 
+The solution is to use a subquery.
+
+A subquery is a query nested inside another query such as SELECT, INSERT, DELETE and UPDATE. 
+
+To construct a subquery, we put the second query in brackets and use it in the WHERE clause as an expression
+*/
+
+SELECT
+	film_id,
+	title,
+	rental_rate
+FROM
+	film
+WHERE
+	rental_rate > (
+		SELECT
+			AVG (rental_rate)
+		FROM
+			film
+	);
+
+/*
+The query inside the brackets is called a subquery or an inner query.
+The query that contains the subquery is known as an outer query.
+
+PostgreSQL executes the query that contains a subquery in the following sequence:
+. First, executes the subquery.
+. Second, gets the result and passes it to the outer query.
+. Third, executes the outer query.
+*/
+
+-- PostgreSQL subquery with IN operator
+/*
+A subquery can return zero or more rows.
+To use this subquery, you use the IN operator in the WHERE clause.
+*/
+
+-- subquery
+SELECT
+	inventory.film_id
+FROM
+	rental
+INNER JOIN inventory ON inventory.inventory_id = rental.inventory_id
+WHERE
+	return_date BETWEEN '2005-05-29'
+AND '2005-05-30';
+
+-- in
+SELECT
+	film_id,
+	title
+FROM
+	film
+WHERE
+	film_id IN (
+		SELECT
+			inventory.film_id
+		FROM
+			rental
+		INNER JOIN inventory ON inventory.inventory_id = rental.inventory_id
+		WHERE
+			return_date BETWEEN '2005-05-29'
+		AND '2005-05-30'
+	)
+ORDER BY film_id;
+
+-- PostgreSQL subquery with EXISTS operator
+/*
+EXISTS subquery
+
+A subquery can be an input of the EXISTS operator. 
+If the subquery returns any row, the EXISTS operator returns true. 
+If the subquery returns no row, the result of EXISTS operator is false.
+
+The EXISTS operator only cares about the number of rows returned from the subquery, 
+not the content of the rows, therefore, the common coding convention of EXISTS operator is as follows:
+
+EXISTS (SELECT 1 FROM tbl WHERE condition);
+*/
+
+SELECT
+	first_name,
+	last_name
+FROM
+	customer
+WHERE
+	EXISTS (
+		SELECT
+			1
+		FROM
+			payment
+		WHERE
+			payment.customer_id = customer.customer_id
+	);
+
+/* PostgreSQL ANY Operator */
+/*
+The PostgreSQL ANY operator compares a value to a set of values returned by a subquery. 
+
+expresion operator ANY(subquery)
+
+. The subquery must return exactly one column.
+. The ANY operator must be preceded by one of the following comparison operator =, <=, >, <, > and <>
+. The ANY operator returns true if any value of the subquery meets the condition, otherwise, it returns false.
+
+Note that SOME is a synonym for ANY, meaning that you can substitute SOME for ANY in any SQL statement.
+*/
+
+SELECT
+    MAX( length )
+FROM
+    film
+INNER JOIN film_category
+        USING(film_id)
+GROUP BY
+    category_id;
+
+-- any
+SELECT title
+FROM film
+WHERE length >= ANY(
+    SELECT MAX( length )
+    FROM film
+    INNER JOIN film_category USING(film_id)
+    GROUP BY  category_id );
+
+/*
+Para cada categoría de película, la subconsulta encuentra la duración máxima.
+La consulta externa analiza todos estos valores y determina qué duración de la película es mayor o igual 
+que la duración máxima de cualquier categoría de película.
+
+Tenga en cuenta que si la subconsulta no devuelve ninguna fila, la consulta completa devuelve un conjunto de resultados vacío.
+*/
+
+/*
+ANY vs. IN
+The = ANY is equivalent to IN operator
+*/
+
+-- any
+SELECT
+    title,
+    category_id
+FROM
+    film
+INNER JOIN film_category
+        USING(film_id)
+WHERE
+    category_id = ANY(
+        SELECT
+            category_id
+        FROM
+            category
+        WHERE
+            NAME = 'Action'
+            OR NAME = 'Drama'
+    );
+
+-- in
+SELECT
+    title,
+    category_id
+FROM
+    film
+INNER JOIN film_category
+        USING(film_id)
+WHERE
+    category_id IN(
+        SELECT
+            category_id
+        FROM
+            category
+        WHERE
+            NAME = 'Action'
+            OR NAME = 'Drama'
+    );
+	
+/* PostgreSQL ALL Operator */
+/*
+The PostgreSQL ALL operator allows you to query data by comparing a value with a list of values returned by a subquery.
+
+comparison_operator ALL (subquery)
+
+. The ALL operator must be preceded by a comparison operator such as equal (=), not equal (!=),
+greater than (>), greater than or equal to (>=), less than (<), and less than or equal to (<=).
+. The ALL operator must be followed by a subquery which also must be surrounded by the parentheses.
+
+column_name > ALL (subquery) the expression evaluates to true if a value is greater than the biggest value returned by the subquery.
+column_name >= ALL (subquery) the expression evaluates to true if a value is greater than or equal to the biggest value returned by the subquery.
+column_name < ALL (subquery) the expression evaluates to true if a value is less than the smallest value returned by the subquery.
+column_name <= ALL (subquery) the expression evaluates to true if a value is less than or equal to the smallest value returned by the subquery.
+column_name = ALL (subquery) the expression evaluates to true if a value is equal to any value returned by the subquery.
+column_name != ALL (subquery) the expression evaluates to true if a value is not equal to any value returned by the subquery.
+In case the subquery returns no row, then the ALL operator always evaluates to true.
+*/
+
+-- subquery
+SELECT
+    ROUND(AVG(length), 2) avg_length
+FROM
+    film
+GROUP BY
+    rating
+ORDER BY
+    avg_length DESC;
+
+-- all
+SELECT
+    film_id,
+    title,
+    length
+FROM
+    film
+WHERE
+    length > ALL (
+            SELECT
+                ROUND(AVG (length),2)
+            FROM
+                film
+            GROUP BY
+                rating
+    )
+ORDER BY
+    length;
+
+/* PostgreSQL EXISTS */
+/*
+The EXISTS operator is a boolean operator that tests for existence of rows in a subquery.
+
+EXISTS (subquery)
+
+The EXISTS accepts an argument which is a subquery.
+
+If the subquery returns at least one row, the result of EXISTS is true. 
+In case the subquery returns no row, the result is of EXISTS is false.
+
+The EXISTS operator is often used with the correlated subquery.
+
+The result of EXISTS operator depends on whether any row returned by the subquery, and not on the row contents. 
+Therefore, columns that appear on the SELECT clause of the subquery are not important.
+
+For this reason, the common coding convention is to write EXISTS in the following form:
+
+SELECT 
+    column1
+FROM 
+    table_1
+WHERE 
+    EXISTS( SELECT 
+                1 
+            FROM 
+                table_2 
+            WHERE 
+                column_2 = table_1.column_1);
+				
+Note that if the subquery returns NULL, the result of EXISTS is true.
+*/
+
+-- A) Find customers who have at least one payment whose amount is greater than 11.
+SELECT first_name,
+       last_name
+FROM customer c
+WHERE EXISTS
+    (SELECT 1
+     FROM payment p
+     WHERE p.customer_id = c.customer_id
+       AND amount > 11 )
+ORDER BY first_name,
+         last_name;
+
+-- B) NOT EXISTS example
+/*
+The NOT operator negates the result of the EXISTS operator.
+The NOT EXISTS is opposite to EXISTS. 
+It means that if the subquery returns no row, the NOT EXISTS returns true.
+If the subquery returns one or more rows, the NOT EXISTS returns false.
+*/
+
+SELECT first_name,
+       last_name
+FROM customer c
+WHERE NOT EXISTS
+    (SELECT 1
+     FROM payment p
+     WHERE p.customer_id = c.customer_id
+       AND amount > 11 )
+ORDER BY first_name,
+         last_name;
+		 
+-- C) EXISTS and NULL
+/*
+If the subquery returns NULL, EXISTS returns true.
+*/
+
+SELECT
+	first_name,
+	last_name
+FROM
+	customer
+WHERE
+	EXISTS( SELECT NULL )
+ORDER BY
+	first_name,
+	last_name;
