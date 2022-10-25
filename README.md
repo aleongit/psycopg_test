@@ -86,3 +86,12 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-update-join/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete-join/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-upsert/
+
+### PostgreSQL Managing Tables
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-data-types/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select-into/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table-as/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-serial/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-sequences/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-identity-column/
