@@ -645,3 +645,423 @@ FROM
     contacts
 WHERE
     phone IS NOT NULL;
+	
+/* PostgreSQL Table Aliases */
+/*
+table_name AS alias_name;
+table_name alias_name;
+*/
+
+/*
+Practical applications of table aliases
+
+1. Using table aliases for the long table name to make queries more readable
+
+a_very_long_table_name.column_name
+a_very_long_table_name AS alias
+alias.column_name
+*/
+
+-- 2. Using table aliases in join clauses
+
+SELECT
+	c.customer_id,
+	first_name,
+	amount,
+	payment_date
+FROM
+	customer c
+INNER JOIN payment p 
+    ON p.customer_id = c.customer_id
+ORDER BY 
+   payment_date DESC;
+
+-- 3. Using table aliases in self-join
+
+SELECT
+    e.first_name employee,
+    m .first_name manager
+FROM
+    employee e
+INNER JOIN employee m 
+    ON m.employee_id = e.manager_id
+ORDER BY manager;
+
+/* PostgreSQL Joins */
+
+CREATE TABLE basket_a (
+    a INT PRIMARY KEY,
+    fruit_a VARCHAR (100) NOT NULL
+);
+
+CREATE TABLE basket_b (
+    b INT PRIMARY KEY,
+    fruit_b VARCHAR (100) NOT NULL
+);
+
+INSERT INTO basket_a (a, fruit_a)
+VALUES
+    (1, 'Apple'),
+    (2, 'Orange'),
+    (3, 'Banana'),
+    (4, 'Cucumber');
+
+INSERT INTO basket_b (b, fruit_b)
+VALUES
+    (1, 'Orange'),
+    (2, 'Apple'),
+    (3, 'Watermelon'),
+    (4, 'Pear');
+	
+-- inner join
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+INNER JOIN basket_b
+    ON fruit_a = fruit_b;
+
+-- left (outer) join
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+LEFT JOIN basket_b 
+   ON fruit_a = fruit_b;
+
+-- left (outer) join, only rows from the left table
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+LEFT JOIN basket_b 
+    ON fruit_a = fruit_b
+WHERE b IS NULL;
+
+-- right (outer) join
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+RIGHT JOIN basket_b ON fruit_a = fruit_b;
+
+-- right (outer) join, only rows from right table
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+RIGHT JOIN basket_b 
+   ON fruit_a = fruit_b
+WHERE a IS NULL;
+
+
+-- full outer join
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+FULL OUTER JOIN basket_b 
+    ON fruit_a = fruit_b;
+
+-- full outer join, only rows unique to both tables
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+FULL JOIN basket_b 
+   ON fruit_a = fruit_b
+WHERE a IS NULL OR b IS NULL;
+
+/* PostgreSQL INNER JOIN */
+
+-- 1) Using PostgreSQL INNER JOIN to join two tables
+SELECT
+	customer.customer_id,
+	first_name,
+	last_name,
+	amount,
+	payment_date
+FROM
+	customer
+INNER JOIN payment 
+    ON payment.customer_id = customer.customer_id
+ORDER BY payment_date;
+
+-- with alias
+SELECT
+	c.customer_id,
+	first_name,
+	last_name,
+	email,
+	amount,
+	payment_date
+FROM
+	customer c
+INNER JOIN payment p 
+    ON p.customer_id = c.customer_id
+WHERE
+    c.customer_id = 2;
+
+-- Since both tables have the same customer_id column, you can use the USING syntax
+SELECT
+	customer_id,
+	first_name,
+	last_name,
+	amount,
+	payment_date
+FROM
+	customer
+INNER JOIN payment USING(customer_id)
+ORDER BY payment_date;
+
+-- 2) Using PostgreSQL INNER JOIN to join three tables
+SELECT
+	c.customer_id,
+	c.first_name customer_first_name,
+	c.last_name customer_last_name,
+	s.first_name staff_first_name,
+	s.last_name staff_last_name,
+	amount,
+	payment_date
+FROM
+	customer c
+INNER JOIN payment p 
+    ON p.customer_id = c.customer_id
+INNER JOIN staff s 
+    ON p.staff_id = s.staff_id
+ORDER BY payment_date;
+
+/* PostgreSQL LEFT JOIN */
+
+SELECT
+	film.film_id,
+	title,
+	inventory_id
+FROM
+	film
+LEFT JOIN inventory 
+    ON inventory.film_id = film.film_id
+ORDER BY title;
+
+
+SELECT
+	film.film_id,
+	film.title,
+	inventory_id
+FROM
+	film
+LEFT JOIN inventory 
+   ON inventory.film_id = film.film_id
+WHERE inventory.film_id IS NULL
+ORDER BY title;
+
+-- with alias
+SELECT
+	f.film_id,
+	title,
+	inventory_id
+FROM
+	film f
+LEFT JOIN inventory i
+   ON i.film_id = f.film_id
+WHERE i.film_id IS NULL
+ORDER BY title;
+
+-- with USING
+SELECT
+	f.film_id,
+	title,
+	inventory_id
+FROM
+	film f
+LEFT JOIN inventory i USING (film_id)
+WHERE i.film_id IS NULL
+ORDER BY title;
+
+/* PostgreSQL Self-Join */
+/*
+A self-join is a regular join that joins a table to itself.
+In practice, you typically use a self-join to query hierarchical data or to compare rows within the same table.
+To form a self-join, you specify the same table twice with different table aliases 
+and provide the join predicate after the ON keyword.
+*/
+
+/*
+SELECT select_list
+FROM table_name t1
+INNER JOIN table_name t2 ON join_predicate;
+
+SELECT select_list
+FROM table_name t1
+LEFT JOIN table_name t2 ON join_predicate;
+*/
+
+-- 1) Querying hierarchical data example
+CREATE TABLE employee (
+	employee_id INT PRIMARY KEY,
+	first_name VARCHAR (255) NOT NULL,
+	last_name VARCHAR (255) NOT NULL,
+	manager_id INT,
+	FOREIGN KEY (manager_id) 
+	REFERENCES employee (employee_id) 
+	ON DELETE CASCADE
+);
+INSERT INTO employee (
+	employee_id,
+	first_name,
+	last_name,
+	manager_id
+)
+VALUES
+	(1, 'Windy', 'Hays', NULL),
+	(2, 'Ava', 'Christensen', 1),
+	(3, 'Hassan', 'Conner', 1),
+	(4, 'Anna', 'Reeves', 2),
+	(5, 'Sau', 'Norman', 2),
+	(6, 'Kelsie', 'Hays', 3),
+	(7, 'Tory', 'Goff', 3),
+	(8, 'Salley', 'Lester', 3);
+
+-- with inner join
+SELECT
+    e.first_name || ' ' || e.last_name employee,
+    m .first_name || ' ' || m .last_name manager
+FROM
+    employee e
+INNER JOIN employee m ON m .employee_id = e.manager_id
+ORDER BY manager;
+
+-- with left join
+SELECT
+    e.first_name || ' ' || e.last_name employee,
+    m .first_name || ' ' || m .last_name manager
+FROM
+    employee e
+LEFT JOIN employee m ON m .employee_id = e.manager_id
+ORDER BY manager;
+
+-- 2) Comparing the rows with the same table
+SELECT
+    f1.title,
+    f2.title,
+    f1.length
+FROM
+    film f1
+INNER JOIN film f2 
+    ON f1.film_id <> f2.film_id AND 
+       f1.length = f2.length;
+
+/* PostgreSQL Cross Join */
+/*
+A CROSS JOIN clause allows you to produce a Cartesian Product of rows in two or more tables.
+Different from other join clauses such as LEFT JOIN  or INNER JOIN, the CROSS JOIN clause does not have a join predicate.
+
+SELECT select_list
+FROM T1
+CROSS JOIN T2;
+
+-- equivalent
+SELECT select_list
+FROM T1, T2;
+
+-- equivalent
+SELECT *
+FROM T1
+INNER JOIN T2 ON true;
+*/
+
+DROP TABLE IF EXISTS T1;
+CREATE TABLE T1 (label CHAR(1) PRIMARY KEY);
+
+DROP TABLE IF EXISTS T2;
+CREATE TABLE T2 (score INT PRIMARY KEY);
+
+INSERT INTO T1 (label)
+VALUES
+	('A'),
+	('B');
+
+INSERT INTO T2 (score)
+VALUES
+	(1),
+	(2),
+	(3);
+	
+SELECT *
+FROM T1
+CROSS JOIN T2;
+
+/* PostgreSQL NATURAL JOIN*/
+/*
+A natural join is a join that creates an implicit join based on the same column names in the joined tables.
+
+SELECT select_list
+FROM T1
+NATURAL [INNER, LEFT, RIGHT] JOIN T2;
+
+. PostgreSQL will use the INNER JOIN by default.
+. If you use the asterisk (*) in the select list, the result will contain the following columns:
+	. All the common columns, which are the columns from both tables that have the same name.
+	. Every column from both tables, which is not a common column.
+*/
+
+DROP TABLE IF EXISTS categories;
+CREATE TABLE categories (
+	category_id serial PRIMARY KEY,
+	category_name VARCHAR (255) NOT NULL
+);
+
+DROP TABLE IF EXISTS products;
+CREATE TABLE products (
+	product_id serial PRIMARY KEY,
+	product_name VARCHAR (255) NOT NULL,
+	category_id INT NOT NULL,
+	FOREIGN KEY (category_id) REFERENCES categories (category_id)
+);
+
+INSERT INTO categories (category_name)
+VALUES
+	('Smart Phone'),
+	('Laptop'),
+	('Tablet');
+
+INSERT INTO products (product_name, category_id)
+VALUES
+	('iPhone', 1),
+	('Samsung Galaxy', 1),
+	('HP Elite', 2),
+	('Lenovo Thinkpad', 2),
+	('iPad', 3),
+	('Kindle Fire', 3);
+	
+
+-- natural join
+SELECT * FROM products NATURAL JOIN categories;
+
+-- equivalent
+SELECT	* FROM products
+INNER JOIN categories USING (category_id);
+
+/* PostgreSQL GROUP BY */
+

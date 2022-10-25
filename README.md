@@ -57,3 +57,14 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-fetch/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-in/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-between/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-like/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-is-null/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-alias/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-joins/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-inner-join/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-left-join/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-right-join/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-self-join/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-full-outer-join/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-cross-join/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-natural-join/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-group-by/
