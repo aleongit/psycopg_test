@@ -111,3 +111,5 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-truncate-table
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-primary-key/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-foreign-key/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-check-constraint/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-unique-constraint/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-not-null-constraint/
