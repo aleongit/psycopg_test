@@ -102,3 +102,5 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-column/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-change-column-type/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-rename-column/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-table/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-temporary-table/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-truncate-table/

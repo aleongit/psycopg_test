@@ -1091,7 +1091,206 @@ ALTER TABLE customers
 RENAME COLUMN phone TO contact_phone;
 
 /* PostgreSQL DROP TABLE */
+/*
 
+DROP TABLE [IF EXISTS] table_name 
+[CASCADE | RESTRICT];
 
+If you remove a table that does not exist, PostgreSQL issues an error.
+To avoid this situation, you can use the IF EXISTS option.
 
-	
+In case the table that you want to remove is used in other objects such as views, triggers, functions, 
+and stored procedures, the DROP TABLE cannot remove the table. In this case, you have two options:
+
+. The CASCADE option allows you to remove the table and its dependent objects.
+
+. The RESTRICT option rejects the removal if there is any object depends on the table. 
+The RESTRICT option is the default if you don’t explicitly specify it in the DROP TABLE statement.
+
+To remove multiple tables at once, you can place a comma-separated list of tables after the DROP TABLE keywords:
+
+DROP TABLE [IF EXISTS] 
+   table_name_1,
+   table_name_2,
+   ...
+[CASCADE | RESTRICT];
+
+Note that you need to have the roles of the superuser, schema owner, or table owner in order to drop tables.
+*/
+
+-- 1) Drop a table that does not exist
+
+DROP TABLE author;
+-- [Err] ERROR:  table "author" does not exist
+
+DROP TABLE IF EXISTS author;
+-- NOTICE:  table "author" does not exist, skipping DROP TABLE
+
+-- 2) Drop a table that has dependent objects
+
+CREATE TABLE authors (
+	author_id INT PRIMARY KEY,
+	firstname VARCHAR (50),
+	lastname VARCHAR (50)
+);
+
+CREATE TABLE pages (
+	page_id serial PRIMARY KEY,
+	title VARCHAR (255) NOT NULL,
+	contents TEXT,
+	author_id INT NOT NULL,
+	FOREIGN KEY (author_id) 
+          REFERENCES authors (author_id)
+);
+
+DROP TABLE IF EXISTS authors;
+/*
+ERROR:  cannot drop table authors because other objects depend on it
+DETAIL:  constraint pages_author_id_fkey on table pages depends on table authors
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+SQL state: 2BP01
+*/
+
+DROP TABLE authors CASCADE;
+-- NOTICE:  drop cascades to constraint pages_author_id_fkey on table pages
+
+-- 3) Drop multiple tables
+
+CREATE TABLE tvshows(
+	tvshow_id INT GENERATED ALWAYS AS IDENTITY,
+	title VARCHAR,
+	release_year SMALLINT,
+	PRIMARY KEY(tvshow_id)
+);
+
+CREATE TABLE animes(
+	anime_id INT GENERATED ALWAYS AS IDENTITY,
+	title VARCHAR,
+	release_year SMALLINT,
+	PRIMARY KEY(anime_id)
+);
+
+DROP TABLE tvshows, animes;
+
+/* PostgreSQL Temporary Table */
+/*
+A temporary table, as its name implied, is a short-lived table that exists for the duration of a database session.
+PostgreSQL automatically drops the temporary tables at the end of a session or a transaction.
+
+CREATE TEMPORARY TABLE temp_table_name(
+   column_list
+);
+
+CREATE TEMP TABLE temp_table(
+   ...
+);
+
+A temporary table is visible only to the session that creates it.
+In other words, it is invisible to other sessions.
+
+postgres=# CREATE DATABASE testa;
+CREATE DATABASE
+postgres-# \c testa;
+You are now connected to database "test" as user "postgres".
+
+test=# CREATE TEMP TABLE mytemp(c INT);
+CREATE TABLE
+test=# SELECT * FROM mytemp;
+ c
+---
+(0 rows)
+
+Then, launch another session that connects to the test database and query data from the mytemp table:
+
+test=# SELECT * FROM mytemp;
+ERROR:  relation "mytemp" does not exist
+LINE 1: SELECT * FROM mytemp;
+
+As can see clearly from the output, the second session could not see the mytemp table.
+Only the first session can access it.
+
+After that, quit all the sessions:
+
+test=# \q
+
+Finally, log in to the database server again and query data from the mytemp table:
+
+test=# SELECT * FROM mytemp;
+ERROR:  relation "mytemp" does not exist
+LINE 1: SELECT * FROM mytemp;
+                      ^
+The mytemp table does not exist because it has been dropped automatically when the session ended, 
+therefore, PostgreSQL issued an error.
+*/
+
+/* PostgreSQL TRUNCATE TABLE */
+/*
+To remove all data from a table, you use the DELETE statement.
+However, when you use the DELETE statement to delete all data from a table that has a lot of data, it is not efficient.
+In this case, you need to use the TRUNCATE TABLE statement:
+
+TRUNCATE TABLE table_name;
+
+The  TRUNCATE TABLE statement deletes all data from a table without scanning it. 
+This is the reason why it is faster than the DELETE statement.
+
+In addition, the TRUNCATE TABLE statement reclaims the storage right away so you do not have 
+to perform a subsequent VACUMM operation, which is useful in the case of large tables.
+*/
+
+/*
+Remove all data from one table
+
+TRUNCATE TABLE table_name;
+
+Besides removing data, you may want to reset the values in the identity column by using the RESTART IDENTITY option like this:
+
+TRUNCATE TABLE table_name 
+RESTART IDENTITY;
+
+By default, the  TRUNCATE TABLE statement uses the CONTINUE IDENTITY option. 
+This option basically does not restart the value in sequence associated with the column in the table.
+*/
+
+/*
+Remove all data from multiple tables
+
+TRUNCATE TABLE 
+    table_name1, 
+    table_name2,
+    ...;
+*/
+
+/*
+Remove all data from a table that has foreign key references
+
+In practice, the table you want to truncate often has the foreign key references from other tables 
+that are not listed in the  TRUNCATE TABLE statement.
+By default, the  TRUNCATE TABLE statement does not remove any data from the table that has foreign key references.
+
+To remove data from a table and other tables that have foreign key reference the table, 
+you use CASCADE option in the TRUNCATE TABLE statement as follows :
+
+TRUNCATE TABLE table_name 
+CASCADE;
+
+The CASCADE option should be used with further consideration or you may potentially delete data from tables that you did not want.
+By default, the TRUNCATE TABLE statement uses the RESTRICT option which prevents you 
+from truncating the table that has foreign key constraint references.
+
+PostgreSQL TRUNCATE TABLE and ON DELETE trigger
+Even though the  TRUNCATE TABLE statement removes all data from a table, 
+it does not fire any  ON DELETE triggers associated with the table.
+
+To fire the trigger when the  TRUNCATE TABLE command applied to a table, 
+you must define  BEFORE TRUNCATE and/or  AFTER TRUNCATE triggers for that table.
+
+PostgreSQL TRUNCATE TABLE and transaction
+The  TRUNCATE TABLE is transaction-safe. It means that if you place it within a transaction, you can roll it back safely.
+
+Summary
+. Use the TRUNCATE TABLE statement to delete all data from a large table.
+. Use the CASCADE option to truncate a table and other tables that reference the table via foreign key constraint.
+. The TRUNCATE TABLE does not fire ON DELETE trigger. Instead, it fires the BEFORE TRUNCATE and AFTER TRUNCATE triggers.
+. The TRUNCATE TABLE statement is transaction-safe.
+*/
