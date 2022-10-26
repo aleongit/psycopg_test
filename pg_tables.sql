@@ -1061,4 +1061,37 @@ CREATE TABLE customers (
     FOREIGN KEY (group_id) REFERENCES customer_groups (id)
 );
 
+CREATE VIEW customer_data 
+AS SELECT
+    c.id,
+    c.name,
+    g.name customer_group
+FROM
+    customers c
+INNER JOIN customer_groups g ON g.id = c.group_id;
+
+-- 1) Using RENAME COLUMN to rename one column example
+
+ALTER TABLE customers 
+RENAME COLUMN email TO contact_email;
+
+-- 2) Using RENAME COLUMN to rename a column that has dependent objects example
+
+ALTER TABLE customer_groups 
+RENAME COLUMN name TO group_name;
+
+-- \d+ customer_data;
+
+-- 3) Using multiple RENAME COLUMN to rename multiple columns example
+
+ALTER TABLE customers 
+RENAME COLUMN name TO customer_name;
+
+ALTER TABLE customers
+RENAME COLUMN phone TO contact_phone;
+
+/* PostgreSQL DROP TABLE */
+
+
+
 	
