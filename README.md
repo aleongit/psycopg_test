@@ -96,3 +96,9 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-serial/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-sequences/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-identity-column/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-alter-table/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-rename-table/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-add-column/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-column/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-change-column-type/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-rename-column/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-table/

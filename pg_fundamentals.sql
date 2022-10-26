@@ -1,4 +1,5 @@
 SELECT Version();
+-- PostgreSQL 15.0, compiled by Visual C++ build 1914, 64-bit
 
 /*
 The SELECT statement has the following clauses:

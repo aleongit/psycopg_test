@@ -1,3 +1,6 @@
+SELECT Version();
+-- PostgreSQL 15.0, compiled by Visual C++ build 1914, 64-bit
+
 /*
 PostgreSQL Data Types
 
@@ -632,3 +635,430 @@ DROP IDENTITY [ IF EXISTS ]
 ALTER TABLE shape
 ALTER COLUMN shape_id
 DROP IDENTITY IF EXISTS;
+
+/* PostgreSQL ALTER TABLE */
+
+/*
+ALTER TABLE table_name action;
+*/
+
+/*
+PostgreSQL provides you with many actions:
+. Add a column
+. Drop a column
+. Change the data type of a column
+. Rename a column
+. Set a default value for the column.
+. Add a constraint to a column.
+. Rename a table
+*/
+
+/*
+. To add a new column to a table, you use ALTER TABLE ADD COLUMN statement:
+
+ALTER TABLE table_name 
+ADD COLUMN column_name datatype column_constraint;
+
+. To drop a column from a table, you use ALTER TABLE DROP COLUMN statement:
+
+ALTER TABLE table_name 
+DROP COLUMN column_name;
+
+. To rename a column, you use the ALTER TABLE RENAME COLUMN TO statement:
+
+ALTER TABLE table_name 
+RENAME COLUMN column_name 
+TO new_column_name;
+
+. To change a default value of the column, you use ALTER TABLE ALTER COLUMN SET DEFAULT or  DROP DEFAULT:
+
+ALTER TABLE table_name 
+ALTER COLUMN column_name 
+[SET DEFAULT value | DROP DEFAULT];
+
+. To change the NOT NULL constraint, you use ALTER TABLE ALTER COLUMN statement:
+
+ALTER TABLE table_name 
+ALTER COLUMN column_name 
+[SET NOT NULL| DROP NOT NULL];
+
+. To add a CHECK constraint, you use ALTER TABLE ADD CHECK statement:
+
+ALTER TABLE table_name 
+ADD CHECK expression;
+
+. Generailly, to add a constraint to a table, you use ALTER TABLE ADD CONSTRAINT statement:
+
+ALTER TABLE table_name 
+ADD CONSTRAINT constraint_name constraint_definition;
+
+. To rename a table you use ALTER TABLE RENAME TO statement:
+
+ALTER TABLE table_name 
+RENAME TO new_table_name;
+*/
+
+DROP TABLE IF EXISTS links;
+CREATE TABLE links (
+   link_id serial PRIMARY KEY,
+   title VARCHAR (512) NOT NULL,
+   url VARCHAR (1024) NOT NULL
+);
+
+-- add column
+ALTER TABLE links
+ADD COLUMN active boolean;
+
+-- remove column
+ALTER TABLE links 
+DROP COLUMN active;
+
+-- rename column
+ALTER TABLE links 
+RENAME COLUMN title TO link_title;
+
+ALTER TABLE links 
+ADD COLUMN target VARCHAR(10);
+
+-- set default in column
+ALTER TABLE links 
+ALTER COLUMN target
+SET DEFAULT '_blank';
+
+INSERT INTO links (link_title, url)
+VALUES('PostgreSQL Tutorial','https://www.postgresqltutorial.com/');
+
+SELECT * FROM links;
+
+-- adds a CHECK condition to 'target' column so only accepts the following values: _self, _blank, _parent, and _top:
+ALTER TABLE links 
+ADD CHECK (target IN ('_self', '_blank', '_parent', '_top'));
+
+INSERT INTO links(link_title,url,target) 
+VALUES('PostgreSQL','http://www.postgresql.org/','whatever');
+/*
+ERROR:  new row for relation "links" violates check constraint "links_target_check"
+DETAIL:  Failing row contains (2, PostgreSQL, http://www.postgresql.org/, whatever).
+*/
+
+-- adds a UNIQUE constraint to 'url' column
+ALTER TABLE links 
+ADD CONSTRAINT unique_url UNIQUE ( url );
+
+INSERT INTO links(link_title,url) 
+VALUES('PostgreSQL','https://www.postgresqltutorial.com/');
+/*
+ERROR:  duplicate key value violates unique constraint "unique_url"
+DETAIL:  Key (url)=(https://www.postgresqltutorial.com/) already exists.
+*/
+
+-- rename table
+ALTER TABLE links 
+RENAME TO urls;
+
+/* PostgreSQL Rename Table */
+/*
+ALTER TABLE [IF EXISTS] table_name
+RENAME TO new_table_name;
+*/
+
+DROP TABLE IF EXISTS vendors;
+CREATE TABLE vendors (
+    id serial PRIMARY KEY,
+    name VARCHAR NOT NULL
+);
+
+-- rename
+ALTER TABLE vendors RENAME TO suppliers;
+
+CREATE TABLE supplier_groups (
+    id serial PRIMARY KEY,
+    name VARCHAR NOT NULL
+);
+
+ALTER TABLE suppliers 
+ADD COLUMN group_id INT NOT NULL;
+
+ALTER TABLE suppliers 
+ADD FOREIGN KEY (group_id) REFERENCES supplier_groups (id);
+
+CREATE VIEW supplier_data 
+AS SELECT
+    s.id,
+    s.name,
+    g.name  supply_group
+FROM
+    suppliers s
+INNER JOIN supplier_groups g ON g.id = s.group_id;
+
+/*
+When you rename a table to the new one, 
+PostgreSQL will automatically update its dependent objects such as foreign key constraints, views, and indexes.
+*/
+
+-- \d suppliers
+
+ALTER TABLE supplier_groups RENAME TO groups;
+
+-- \d suppliers
+-- \d+ supplier_data
+
+/* PostgreSQL ADD COLUMN: Add One Or More Columns To a Table */
+/*
+ALTER TABLE table_name
+ADD COLUMN new_column_name data_type constraint;
+*/
+
+/*
+To add multiple columns
+
+ALTER TABLE table_name
+ADD COLUMN column_name1 data_type constraint,
+ADD COLUMN column_name2 data_type constraint,
+...
+ADD COLUMN column_namen data_type constraint;
+
+*/
+
+DROP TABLE IF EXISTS customers CASCADE;
+CREATE TABLE customers (
+    id SERIAL PRIMARY KEY,
+    customer_name VARCHAR NOT NULL
+);
+
+-- add column
+ALTER TABLE customers 
+ADD COLUMN phone VARCHAR;
+
+-- add multiple columns
+ALTER TABLE customers
+ADD COLUMN fax VARCHAR,
+ADD COLUMN email VARCHAR;
+
+-- \d customers
+
+/* Add a column with the NOT NULL constraint to a table that already has data */
+
+INSERT INTO 
+   customers (customer_name)
+VALUES
+   ('Apple'),
+   ('Samsung'),
+   ('Sony');
+
+-- add column
+ALTER TABLE customers 
+ADD COLUMN contact_name VARCHAR NOT NULL;
+--ERROR:  column "contact_name" contains null values
+/*
+This is because the contact_name column has the NOT NULL constraint. 
+When PostgreSQL added the column, this new column receive NULL, which violates the NOT NULL constraint.
+*/
+
+-- To solve this problem…
+-- First, add the column without the NOT NULL constraint:
+ALTER TABLE customers 
+ADD COLUMN contact_name VARCHAR;
+
+-- Second, update the values in the contact_name column.
+UPDATE customers
+SET contact_name = 'John Doe'
+WHERE id = 1;
+
+UPDATE customers
+SET contact_name = 'Mary Doe'
+WHERE id = 2;
+
+UPDATE customers
+SET contact_name = 'Lily Bush'
+WHERE id = 3;
+
+-- Third, set the NOT NULL constraint for the contact_name column.
+ALTER TABLE customers
+ALTER COLUMN contact_name SET NOT NULL;
+
+SELECT * FROM customers;
+
+/* PostgreSQL DROP COLUMN: Remove One or More Columns of a Table */
+/*
+
+ALTER TABLE table_name 
+DROP COLUMN [IF EXISTS] column_name;
+
+When you remove a column from a table, PostgreSQL will automatically remove all of the indexes 
+and constraints that involved the dropped column.
+If the column that you want to remove is used in other database objects such as views, triggers, stored procedures, etc., 
+you cannot drop the column because other objects are depending on it. 
+In this case, you need to add the CASCADE option to the DROP COLUMN clause to drop the column and all of its dependent objects:
+
+ALTER TABLE table_name 
+DROP COLUMN column_name CASCADE;
+
+If you want to drop multiple columns of a table:
+
+ALTER TABLE table_name
+DROP COLUMN column_name1,
+DROP COLUMN column_name2,
+...;
+
+*/
+
+DROP TABLE IF EXISTS publishers CASCADE;
+CREATE TABLE publishers (
+    publisher_id serial PRIMARY KEY,
+    name VARCHAR NOT NULL
+);
+
+DROP TABLE IF EXISTS categories CASCADE;
+CREATE TABLE categories (
+    category_id serial PRIMARY KEY,
+    name VARCHAR NOT NULL
+);
+
+DROP TABLE IF EXISTS books CASCADE;
+CREATE TABLE books (
+    book_id serial PRIMARY KEY,
+    title VARCHAR NOT NULL,
+    isbn VARCHAR NOT NULL,
+    published_date DATE NOT NULL,
+    description VARCHAR,
+    category_id INT NOT NULL,
+    publisher_id INT NOT NULL,
+    FOREIGN KEY (publisher_id) 
+       REFERENCES publishers (publisher_id),
+    FOREIGN KEY (category_id) 
+       REFERENCES categories (category_id)
+);
+
+CREATE VIEW book_info 
+AS SELECT
+    book_id,
+    title,
+    isbn,
+    published_date,
+    name
+FROM
+    books b
+INNER JOIN publishers 
+    USING(publisher_id)
+ORDER BY title;
+
+ALTER TABLE books 
+DROP COLUMN category_id;
+
+-- \d books
+
+ALTER TABLE books 
+DROP COLUMN publisher_id;
+/*
+ERROR:  cannot drop table books column publisher_id because other objects depend on it
+DETAIL:  view book_info depends on table books column publisher_id
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+*/
+
+ALTER TABLE books 
+DROP COLUMN publisher_id CASCADE;
+-- NOTICE:  drop cascades to view book_info
+
+-- delete multiple
+ALTER TABLE books 
+DROP COLUMN isbn,
+DROP COLUMN description;
+
+/* PostgreSQL Change Column Type */
+/*
+
+ALTER TABLE table_name
+ALTER COLUMN column_name [SET DATA] TYPE new_data_type;
+
+ALTER TABLE table_name
+ALTER COLUMN column_name1 [SET DATA] TYPE new_data_type,
+ALTER COLUMN column_name2 [SET DATA] TYPE new_data_type,
+...;
+
+PostgreSQL allows you to convert the values of a column to the new ones 
+while changing its data type by adding a USING clause as follows:
+
+ALTER TABLE table_name
+ALTER COLUMN column_name TYPE new_data_type USING expression;
+
+The USING clause specifies an expression that allows you to convert the old values to the new ones.
+If you omit the USING clause, PostgreSQL will cast the values to the new ones implicitly. 
+In case the cast fails, PostgreSQL will issue an error 
+and recommends you provide the USING clause with an expression for the data conversion.
+The expression after the USING keyword can be as simple 
+as column_name::new_data_type such as price::numeric or as complex as a custom function.
+*/
+
+CREATE TABLE assets (
+    id serial PRIMARY KEY,
+    name TEXT NOT NULL,
+    asset_no VARCHAR NOT NULL,
+    description TEXT,
+    location TEXT,
+    acquired_date DATE NOT NULL
+);
+
+INSERT INTO assets(name,asset_no,location,acquired_date)
+VALUES('Server','10001','Server room','2017-01-01'),
+      ('UPS','10002','Server room','2017-01-01');
+
+-- change type
+ALTER TABLE assets 
+ALTER COLUMN name TYPE VARCHAR;
+
+-- change multiple
+ALTER TABLE assets 
+ALTER COLUMN location TYPE VARCHAR,
+ALTER COLUMN description TYPE VARCHAR;
+
+-- error
+ALTER TABLE assets 
+ALTER COLUMN asset_no TYPE INT;
+/*
+ERROR:  column "asset_no" cannot be cast automatically to type integer
+HINT:  You might need to specify "USING asset_no::integer".
+*/
+
+ALTER TABLE assets
+ALTER COLUMN asset_no TYPE INT 
+USING asset_no::integer;
+
+/* PostgreSQL RENAME COLUMN */
+/*
+
+ALTER TABLE table_name 
+RENAME COLUMN column_name TO new_column_name;
+
+For some reason, if you try to rename a column that does not exist, PostgreSQL will issue an error.
+Unfortunately that PostgreSQL does not provide the IF EXISTS option for the RENAME clause.
+
+To rename multiple columns, you need to execute the ALTER TABLE RENAME COLUMN statement multiple times, one column at a time:
+
+ALTER TABLE table_name
+RENAME column_name1 TO new_column_name1;
+
+ALTER TABLE table_name
+RENAME column_name2 TO new_column_name2;
+
+If you rename a column referenced by other database objects such as views, foreign key constraints, 
+triggers, and stored procedures, PostgreSQL will automatically change the column name in the dependent objects.
+*/
+
+DROP TABLE IF EXISTS customer_groups;
+CREATE TABLE customer_groups (
+    id serial PRIMARY KEY,
+    name VARCHAR NOT NULL
+);
+
+DROP TABLE IF EXISTS customers;
+CREATE TABLE customers (
+    id serial PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    phone VARCHAR NOT NULL,
+    email VARCHAR,
+    group_id INT,
+    FOREIGN KEY (group_id) REFERENCES customer_groups (id)
+);
+
+	
