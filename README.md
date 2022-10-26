@@ -113,3 +113,20 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-foreign-key/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-check-constraint/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-unique-constraint/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-not-null-constraint/
+
+### PostgreSQL Data Types
+
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-boolean/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-char-varchar-text/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-numeric/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-integer/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-serial/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-date/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-timestamp/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-interval/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-time/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-uuid/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-json/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-hstore/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-array/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-user-defined-data-types/
