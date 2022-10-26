@@ -88,6 +88,7 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete-join/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-upsert/
 
 ### PostgreSQL Managing Tables
+
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-data-types/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select-into/
@@ -104,3 +105,9 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-rename-column/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-table/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-temporary-table/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-truncate-table/
+
+### PostgreSQL Database Constraints
+
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-primary-key/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-foreign-key/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-check-constraint/
