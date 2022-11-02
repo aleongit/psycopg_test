@@ -130,3 +130,10 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-json/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-hstore/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-array/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-user-defined-data-types/
+
+### PostgreSQL Conditional Expressions & Operators
+
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-case/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-coalesce/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-nullif/
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-cast/
