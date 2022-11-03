@@ -99,54 +99,54 @@ https://www.postgresqltutorial.com/postgresql-python/
 
 ### PostgreSQL Managing Tables
 
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-data-types/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select-into/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table-as/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-serial/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-sequences/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-identity-column/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-alter-table/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-rename-table/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-add-column/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-column/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-change-column-type/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-rename-column/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-table/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-temporary-table/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-truncate-table/
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-data-types/">Data Types</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table/">Create Table</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select-into/">Select Into</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table-as/">Create Table As</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-serial/">Serial</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-sequences/">Sequences</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-identity-column/">Identity Column</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-alter-table/">Alter Table</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-rename-table/">Rename Table</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-add-column/">Add Column</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-column/">Drop Column</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-change-column-type/">Change Column's Data Type</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-rename-column/">Rename Column</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-table/">Drop Table</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-temporary-table/">Temporary Table</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-truncate-table/">Truncate Table</a>
 
 
 ### PostgreSQL Database Constraints
 
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-primary-key/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-foreign-key/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-check-constraint/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-unique-constraint/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-not-null-constraint/
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-primary-key/">Primary Key</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-foreign-key/">Foreign Key</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-check-constraint/">Check Constraint</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-unique-constraint/">Unique Constraint</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-not-null-constraint/">Not Null Constraint</a>
 
 
 ### PostgreSQL Data Types
 
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-boolean/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-char-varchar-text/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-numeric/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-integer/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-serial/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-date/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-timestamp/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-interval/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-time/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-uuid/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-json/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-hstore/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-array/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-user-defined-data-types/
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-boolean/">Boolean</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-char-varchar-text/">Char, Varchar & Text</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-numeric/">Numeric</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-integer/">Integer</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-serial/">Serial</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-date/">Date</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-timestamp/">Timestamp</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-interval/">Interval</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-time/">Time</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-uuid/">Uuid</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-json/">Json</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-hstore/">Hstore</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-array/">Array</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-user-defined-data-types/">User Defined Data Types</a>
 
 
 ### PostgreSQL Conditional Expressions & Operators
 
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-case/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-coalesce/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-nullif/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-cast/
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-case/">Case</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-coalesce/">Coalesce</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-nullif/">Nullif</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-cast/">Cast</a>
