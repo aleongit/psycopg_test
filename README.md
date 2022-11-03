@@ -56,10 +56,8 @@ https://www.postgresqltutorial.com/postgresql-python/
 
 ### PostgreSQL Fundamentals
 
-* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/">
-Select</a>
-* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-column-alias/">
-Column Aliases</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/">Select</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-column-alias/">Column Aliases</a>
 
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-order-by/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select-distinct/
