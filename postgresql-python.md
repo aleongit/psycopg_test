@@ -108,7 +108,21 @@ SELECT * FROM vendor_parts;
 
 ```
 
-**6.** Querying data from the PostgreSQL tables – walk you through the steps of querying data from the PostgreSQL tables in a Python application.
+**6.** <a href="https://www.postgresqltutorial.com/postgresql-python/query/">Querying data from the PostgreSQL tables</a> – walk you through the steps of querying data from the PostgreSQL tables in a Python application.
+
+```
+# Steps query
+conn = psycopg2.connect(dsn)
+cur = conn.cursor()
+cur.execute(sql, (value1,value2))
+fetchone(), fetchmany() or fetchall()
+cur.close()
+conn.close()
+
+. Execute
+python query.py
+
+```
 
 **7.** Calling a PostgreSQL function in Python – show you step by step how to call a PostgreSQL function in Python.
 
