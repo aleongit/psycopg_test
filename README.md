@@ -46,6 +46,14 @@ psql -U postgres
 \connect dvdrental
 ```
 
+### PostgreSQL Python
+
+https://www.postgresqltutorial.com/postgresql-python/
+
+All steps:
+
+1. [PostgreSQL Python](step-0-postgresql-python.md)
+
 ### PostgreSQL Fundamentals
 
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/
