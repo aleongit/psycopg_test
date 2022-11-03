@@ -12,6 +12,16 @@ This PostgreSQL Python section covers the most common activities for interacting
 
 **1.** <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/">Connecting</a> to the PostgreSQL database server – show you how to connect to the PostgreSQL database server from Python.
 
+```
+Install the psycopg2 module
+Create a new database
+Connect to the PostgreSQL database using the psycopg2
+database.ini
+config.py
+connect.py
+python connect.py
+```
+
 **2.** Creating new PostgreSQL tables in Python – show you how to create new tables in PostgreSQL from Python.
 
 **3.** Inserting data into the PostgreSQL table in Python – explain to you how to insert data into a PostgreSQL database table in Python.
