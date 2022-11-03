@@ -16,10 +16,11 @@ This PostgreSQL Python section covers the most common activities for interacting
 . Install the psycopg2 module
 pip install psycopg2
 
-. Create a new database
-CREATE DATABASE suppliers; 
+. Create a new database (user postgres)
+CREATE DATABASE suppliers;
 CREATE USER usertest WITH PASSWORD 'test1234';
-GRANT ALL PRIVILEGES ON DATABASE suppliers to usertest;
+GRANT ALL PRIVILEGES ON DATABASE suppliers TO usertest;
+GRANT ALL ON schema public TO usertest;
 
 . Connect to the PostgreSQL database using the psycopg2
 database.ini
@@ -30,7 +31,13 @@ connect.py
 python connect.py
 ```
 
-**2.** Creating new PostgreSQL tables in Python – show you how to create new tables in PostgreSQL from Python.
+**2.** <a href="https://www.postgresqltutorial.com/postgresql-python/create-tables/">Creating new PostgreSQL tables</a> in Python – show you how to create new tables in PostgreSQL from Python.
+
+```
+. Create a Python program
+create_table.py
+
+```
 
 **3.** Inserting data into the PostgreSQL table in Python – explain to you how to insert data into a PostgreSQL database table in Python.
 
