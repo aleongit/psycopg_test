@@ -75,7 +75,6 @@ python insert.py
 
 . Verify
 SELECT * FROM vendors ORDER BY vendor_id;
-
 ```
 
 **4.** <a href="https://www.postgresqltutorial.com/postgresql-python/update/">Updating data in the PostgreSQL table in Python</a> – learn various ways to update data in the PostgreSQL table.
@@ -105,7 +104,6 @@ python transaction.py
 . Verify
 SELECT * FROM parts;
 SELECT * FROM vendor_parts;
-
 ```
 
 **6.** <a href="https://www.postgresqltutorial.com/postgresql-python/query/">Querying data from the PostgreSQL tables</a> – walk you through the steps of querying data from the PostgreSQL tables in a Python application.
@@ -121,10 +119,26 @@ conn.close()
 
 . Execute
 python query.py
-
 ```
 
-**7.** Calling a PostgreSQL function in Python – show you step by step how to call a PostgreSQL function in Python.
+**7.** <a href="https://www.postgresqltutorial.com/postgresql-python/postgresql-python-call-postgresql-functions/">Calling a PostgreSQL function in Python</a> – show you step by step how to call a PostgreSQL function in Python.
+
+```
+# Stemps call function
+conn = psycopg2.connect(dsn)
+cur = conn.cursor()
+cur.callproc('function_name', (value1,value2))
+SELECT * FROM function_name(value1,value2);
+cur.execute("SELECT * FROM function_name( %s,%s); ",(value1,value2))
+cur.close()
+conn.close()
+
+. Create function in pg
+(see supliers.sql)
+
+. Execute
+python call_function.py
+```
 
 **8.** Calling a PostgreSQL stored procedure in Python – guide you on how to call a stored procedure from in a Python application.
 
