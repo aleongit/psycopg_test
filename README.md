@@ -21,10 +21,10 @@ postgres=# CREATE DATABASE test;
 \l o \l+
 
 .crear usuari per la base de dades
-postgres=# CREATE USER usertest WITH PASSWORD 'test1234';
-CREATE ROLE
-postgres=# GRANT ALL PRIVILEGES ON DATABASE test to usertest;
-GRANT
+CREATE USER usertest WITH PASSWORD 'test1234';
+GRANT ALL PRIVILEGES ON DATABASE test to usertest;
+\c test
+GRANT ALL ON schema public TO usertest;
 ```
 
 ## Sample

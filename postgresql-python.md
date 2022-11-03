@@ -20,6 +20,7 @@ pip install psycopg2
 CREATE DATABASE suppliers;
 CREATE USER usertest WITH PASSWORD 'test1234';
 GRANT ALL PRIVILEGES ON DATABASE suppliers TO usertest;
+\c suppliers
 GRANT ALL ON schema public TO usertest;
 
 . Connect to the PostgreSQL database using the psycopg2
