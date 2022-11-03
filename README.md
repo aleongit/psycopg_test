@@ -40,7 +40,7 @@ CREATE DATABASE dvdrental;
 exit;
 
 cd C:\Program Files\PostgreSQL\15\bin
-pg_restore -U postgres -d dvdrental C:\REIXAPPGO\sampledb\dvdrental.tar
+pg_restore -U postgres -d dvdrental C:\APP\sampledb\dvdrental.tar
 
 psql -U postgres
 \connect dvdrental
