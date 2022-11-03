@@ -29,11 +29,25 @@ connect.py
 
 . Run
 python connect.py
+
+# How it works.
+. First, read database connection parameters from the database.ini file.
+. Next, create a new database connection by calling the connect() function.
+. Then, create a new cursor and execute an SQL statement to get the PostgreSQL database version.
+. After that, read the result set by calling the fetchone() method of the cursor object.
+. Finally, close the communication with the database server by calling the close() method of the cursor and connection objects.
 ```
 
 **2.** <a href="https://www.postgresqltutorial.com/postgresql-python/create-tables/">Creating new PostgreSQL tables in Python</a> – show you how to create new tables in PostgreSQL from Python.
 
 ```
+# Steps for creating PostgreSQL tables in Python
+. First, construct CREATE TABLE statements.
+. Next, connect to the PostgreSQL database by calling the connect() function. The connect() function returns a connection object.
+. Then, create a cursor object by calling the cursor() method of the connection object.
+. After that, execute the CREATE TABLE by calling the execute() method of the cursor object.
+. Finally, close the communication with the PostgreSQL database server by calling the close() methods of the cursor and connection objects.
+
 . Create a Python program
 create_table.py
 
@@ -47,9 +61,20 @@ suppliers=# \dt
 **3.** <a href="https://www.postgresqltutorial.com/postgresql-python/insert/">Inserting data into the PostgreSQL table in Python</a> – explain to you how to insert data into a PostgreSQL database table in Python.
 
 ```
+# Steps for inserting one row into a PostgreSQL table
+conn = psycopg2.connect(dsn)
+cur = conn.cursor()
+cur.execute(sql, (value1,value2))
+id = cur.fetchone()[0]
+conn.commit()
+cur.close()
+conn.close()
+
+. Execute
+insert.py
 ```
 
-**4.** Updating data in the PostgreSQL table in Python – learn various ways to update data in the PostgreSQL table.
+**4.** <a href="https://www.postgresqltutorial.com/postgresql-python/update/">Updating data in the PostgreSQL table in Python</a> – learn various ways to update data in the PostgreSQL table.
 
 **5.** Transaction – show you how to perform transactions in Python.
 
