@@ -50,9 +50,7 @@ psql -U postgres
 
 https://www.postgresqltutorial.com/postgresql-python/
 
-#### All steps:
-
-**1.** [PostgreSQL Python](step-0-postgresql-python.md)
+* [PostgreSQL Python](postgresql-python.md)
 
 
 ### PostgreSQL Fundamentals

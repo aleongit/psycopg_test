@@ -10,7 +10,7 @@ Besides, the **psycopg2** driver supports many Python types out-of-the-box. The 
 
 This PostgreSQL Python section covers the most common activities for interacting with PostgreSQL in Python application:
 
-**1.** Connecting to the PostgreSQL database server – show you how to connect to the PostgreSQL database server from Python.
+**1.** <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/">Connecting</a> to the PostgreSQL database server – show you how to connect to the PostgreSQL database server from Python.
 
 **2.** Creating new PostgreSQL tables in Python – show you how to create new tables in PostgreSQL from Python.
 
