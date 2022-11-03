@@ -173,6 +173,10 @@ SELECT * FROM vendor_parts;
 
 . Execute
 python blob.py
+
+# Images
+. copy the images to /images to load in pg
+. images will be exported to /export after being read in pg
 ```
 
 **10.** Deleting data from PostgreSQL tables in Python – show you how to delete data in a table in Python.
