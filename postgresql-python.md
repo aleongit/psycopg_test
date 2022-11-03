@@ -179,7 +179,23 @@ python blob.py
 . images will be exported to /export after being read in pg
 ```
 
-**10.** Deleting data from PostgreSQL tables in Python – show you how to delete data in a table in Python.
+**10.** <a href="https://www.postgresqltutorial.com/postgresql-python/delete/">Deleting data from PostgreSQL tables in Python</a> – show you how to delete data in a table in Python.
+
+```
+# Steps for deleting data
+conn = psycopg2.connect(dsn)
+cur = conn.cursor()
+DELETE FROM table_1 WHERE id = %s;
+cur.execute(delete_sql, (value_1,))
+conn.commit()
+cur.close()
+conn.close()
+
+# Execute
+SELECT * FROM parts;
+python delete.py
+SELECT * FROM parts;
+```
 
 For demonstration purposes, we will use the suppliers sample database. The following picture illustrates the structure of the suppliers database:
 
