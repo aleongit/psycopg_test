@@ -54,47 +54,48 @@ https://www.postgresqltutorial.com/postgresql-python/
 
 **1.** [PostgreSQL Python](step-0-postgresql-python.md)
 
+
 ### PostgreSQL Fundamentals
 
 * <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/">Select</a>
 * <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-column-alias/">Column Aliases</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-order-by/">Order By</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select-distinct/">Select distinct</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-where/">Where</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-limit/">Limit</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-fetch/">Fetch</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-in/">In</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-between/">Between</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-like/">Like</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-is-null/">Is Null</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-alias/">Table Aliases</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-joins/">Joins</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-inner-join/">Inner Join</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-left-join/">Left Join</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-right-join/">Right Join</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-self-join/">Self Join</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-full-outer-join/">Full Outer Join</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-cross-join/">Cross Join</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-natural-join/">Natural Join</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-group-by/">Group By</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-union/">Union</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-intersect/">Intersect</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-having/">Having</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-grouping-sets/">Grouping Sets</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-cube/">Cube</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-rollup/">Rollup</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-subquery/">Subquery</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-any/">Any</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-all/">All</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-exists/">Exists</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-insert/">Insert</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-insert-multiple-rows/">Insert Multiple Rows</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-update/">Update</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-update-join/">Update Join</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete/">Delete</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete-join/">Delete Join</a>
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-upsert/">Upsert</a>
 
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-order-by/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select-distinct/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-where/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-limit/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-fetch/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-in/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-between/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-like/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-is-null/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-alias/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-joins/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-inner-join/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-left-join/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-right-join/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-self-join/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-full-outer-join/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-cross-join/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-natural-join/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-group-by/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-union/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-intersect/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-having/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-grouping-sets/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-cube/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-rollup/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-subquery/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-any/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-all/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-exists/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-insert/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-insert-multiple-rows/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-update/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-update-join/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete-join/
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-upsert/
 
 ### PostgreSQL Managing Tables
 
@@ -115,6 +116,7 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-table/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-temporary-table/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-truncate-table/
 
+
 ### PostgreSQL Database Constraints
 
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-primary-key/
@@ -122,6 +124,7 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-foreign-key/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-check-constraint/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-unique-constraint/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-not-null-constraint/
+
 
 ### PostgreSQL Data Types
 
@@ -139,6 +142,7 @@ https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-json/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-hstore/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-array/
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-user-defined-data-types/
+
 
 ### PostgreSQL Conditional Expressions & Operators
 
