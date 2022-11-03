@@ -124,7 +124,7 @@ python query.py
 **7.** <a href="https://www.postgresqltutorial.com/postgresql-python/postgresql-python-call-postgresql-functions/">Calling a PostgreSQL function in Python</a> – show you step by step how to call a PostgreSQL function in Python.
 
 ```
-# Stemps call function
+# Steps call function
 conn = psycopg2.connect(dsn)
 cur = conn.cursor()
 cur.callproc('function_name', (value1,value2))
@@ -143,7 +143,7 @@ python call_function.py
 **8.** <a href="https://www.postgresqltutorial.com/postgresql-python/call-stored-procedures/">Calling a PostgreSQL stored procedure in Python</a> – guide you on how to call a stored procedure from in a Python application.
 
 ```
-# Stemps call procedure
+# Steps call procedure
 conn = psycopg2.connect(dsn)
 cur = conn.cursor()
 cur.execute("CALL sp_name(%s, %s);", (val1, val2))
@@ -161,13 +161,25 @@ SELECT * FROM vendors;
 SELECT * FROM vendor_parts;
 ```
 
-**9.** Handling PostgreSQL BLOB data in Python– give you an example of inserting and selecting the PostgreSQL BLOB data in a Python application.
+**9.** <a href="https://www.postgresqltutorial.com/postgresql-python/blob/">Handling PostgreSQL BLOB data in Python</a> – give you an example of inserting and selecting the PostgreSQL BLOB data in a Python application.
+
+```
+# Steps
+. First, read data from a file.
+. Next, connect to the PostgreSQL database by creating a new connection object from the connect() function.
+. Then, create a cursor object from the connection object.
+. After that, execute the INSERT statement with the input values. For BLOB data, you use the Binary object of the psycopg module
+. Finally, commit the changes permanently to the PostgreSQL database by calling the commit() method of the connection object.
+
+. Execute
+python blob.py
+```
 
 **10.** Deleting data from PostgreSQL tables in Python – show you how to delete data in a table in Python.
 
 For demonstration purposes, we will use the suppliers sample database. The following picture illustrates the structure of the suppliers database:
 
-![](img/PostgreSQL-Python-Sample-Database-Diagram.png)
+![](images/PostgreSQL-Python-Sample-Database-Diagram.png)
 
 The **suppliers** database has the following tables:
 
