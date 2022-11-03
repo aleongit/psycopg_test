@@ -53,6 +53,11 @@ https://www.postgresqltutorial.com/postgresql-python/
 * [PostgreSQL Python](postgresql-python.md)
 
 
+### CSV
+
+* <a href="https://www.postgresqltutorial.com/postgresql-tutorial/import-csv-file-into-posgresql-table/">Import CSV File Into Table</a>
+
+
 ### PostgreSQL Fundamentals
 
 * <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/">Select</a>
