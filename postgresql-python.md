@@ -10,7 +10,7 @@ Besides, the **psycopg2** driver supports many Python types out-of-the-box. The 
 
 This PostgreSQL Python section covers the most common activities for interacting with PostgreSQL in Python application:
 
-**1.** <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/">Connecting</a> to the PostgreSQL database server – show you how to connect to the PostgreSQL database server from Python.
+**1.** <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/">Connecting to the PostgreSQL database server</a> – show you how to connect to the PostgreSQL database server from Python.
 
 ```
 . Install the psycopg2 module
@@ -31,15 +31,23 @@ connect.py
 python connect.py
 ```
 
-**2.** <a href="https://www.postgresqltutorial.com/postgresql-python/create-tables/">Creating new PostgreSQL tables</a> in Python – show you how to create new tables in PostgreSQL from Python.
+**2.** <a href="https://www.postgresqltutorial.com/postgresql-python/create-tables/">Creating new PostgreSQL tables in Python</a> – show you how to create new tables in PostgreSQL from Python.
 
 ```
 . Create a Python program
 create_table.py
 
+. Execute the Python program
+python create_table.py
+
+. Verify the table creation
+suppliers=# \dt
 ```
 
-**3.** Inserting data into the PostgreSQL table in Python – explain to you how to insert data into a PostgreSQL database table in Python.
+**3.** <a href="https://www.postgresqltutorial.com/postgresql-python/insert/">Inserting data into the PostgreSQL table in Python</a> – explain to you how to insert data into a PostgreSQL database table in Python.
+
+```
+```
 
 **4.** Updating data in the PostgreSQL table in Python – learn various ways to update data in the PostgreSQL table.
 
