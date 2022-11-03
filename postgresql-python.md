@@ -140,7 +140,26 @@ conn.close()
 python call_function.py
 ```
 
-**8.** Calling a PostgreSQL stored procedure in Python – guide you on how to call a stored procedure from in a Python application.
+**8.** <a href="https://www.postgresqltutorial.com/postgresql-python/call-stored-procedures/">Calling a PostgreSQL stored procedure in Python</a> – guide you on how to call a stored procedure from in a Python application.
+
+```
+# Stemps call procedure
+conn = psycopg2.connect(dsn)
+cur = conn.cursor()
+cur.execute("CALL sp_name(%s, %s);", (val1, val2))
+cur.execute("CALL sp_name);")
+conn.commit();
+cur.close()
+conn.close()
+
+. Execute
+python call_procedure.py
+
+. Verify
+SELECT * FROM parts;
+SELECT * FROM vendors;
+SELECT * FROM vendor_parts;
+```
 
 **9.** Handling PostgreSQL BLOB data in Python– give you an example of inserting and selecting the PostgreSQL BLOB data in a Python application.
 
