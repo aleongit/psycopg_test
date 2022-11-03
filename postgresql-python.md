@@ -41,7 +41,7 @@ python connect.py
 **2.** <a href="https://www.postgresqltutorial.com/postgresql-python/create-tables/">Creating new PostgreSQL tables in Python</a> – show you how to create new tables in PostgreSQL from Python.
 
 ```
-# Steps for creating PostgreSQL tables in Python
+# Steps create table
 . First, construct CREATE TABLE statements.
 . Next, connect to the PostgreSQL database by calling the connect() function. The connect() function returns a connection object.
 . Then, create a cursor object by calling the cursor() method of the connection object.
@@ -61,7 +61,7 @@ suppliers=# \dt
 **3.** <a href="https://www.postgresqltutorial.com/postgresql-python/insert/">Inserting data into the PostgreSQL table in Python</a> – explain to you how to insert data into a PostgreSQL database table in Python.
 
 ```
-# Steps for inserting one row into a PostgreSQL table
+# Steps insert
 conn = psycopg2.connect(dsn)
 cur = conn.cursor()
 cur.execute(sql, (value1,value2))
@@ -71,10 +71,31 @@ cur.close()
 conn.close()
 
 . Execute
-insert.py
+python insert.py
+
+. Verify
+SELECT * FROM vendors ORDER BY vendor_id;
+
 ```
 
 **4.** <a href="https://www.postgresqltutorial.com/postgresql-python/update/">Updating data in the PostgreSQL table in Python</a> – learn various ways to update data in the PostgreSQL table.
+
+```
+# Steps update
+conn = psycopg2.connect(dns)
+cur = conn.cursor()
+cur.execute(update_sql, (value1,value2))
+conn.commit()
+cur.close()
+conn.close()
+
+. Execute
+python insert.py
+
+. Verify
+SELECT * FROM vendors WHERE vendor_id = 1;
+
+```
 
 **5.** Transaction – show you how to perform transactions in Python.
 
