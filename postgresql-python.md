@@ -13,12 +13,20 @@ This PostgreSQL Python section covers the most common activities for interacting
 **1.** <a href="https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/">Connecting</a> to the PostgreSQL database server – show you how to connect to the PostgreSQL database server from Python.
 
 ```
-Install the psycopg2 module
-Create a new database
-Connect to the PostgreSQL database using the psycopg2
+. Install the psycopg2 module
+pip install psycopg2
+
+. Create a new database
+CREATE DATABASE suppliers; 
+CREATE USER usertest WITH PASSWORD 'test1234';
+GRANT ALL PRIVILEGES ON DATABASE suppliers to usertest;
+
+. Connect to the PostgreSQL database using the psycopg2
 database.ini
 config.py
 connect.py
+
+. Run
 python connect.py
 ```
 
