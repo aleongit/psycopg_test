@@ -34,7 +34,7 @@ For demonstration purposes, we will use the suppliers sample database. The follo
 
 ![](img/PostgreSQL-Python-Sample-Database-Diagram.png)
 
-The **suppliers database has the following tables:
+The **suppliers** database has the following tables:
 
  * **vendors** table: stores vendor data.
  * **parts** table: stores parts data.
