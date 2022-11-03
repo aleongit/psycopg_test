@@ -94,10 +94,19 @@ python insert.py
 
 . Verify
 SELECT * FROM vendors WHERE vendor_id = 1;
-
 ```
 
-**5.** Transaction – show you how to perform transactions in Python.
+**5.** <a href="https://www.postgresqltutorial.com/postgresql-python/transaction/">Transaction</a> – show you how to perform transactions in Python.
+
+```
+. Execute
+python transaction.py
+
+. Verify
+SELECT * FROM parts;
+SELECT * FROM vendor_parts;
+
+```
 
 **6.** Querying data from the PostgreSQL tables – walk you through the steps of querying data from the PostgreSQL tables in a Python application.
 
