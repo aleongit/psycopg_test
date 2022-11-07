@@ -4,6 +4,12 @@ https://www.postgresqltutorial.com/postgresql-python/connect/
 
 Connect to the PostgreSQL database server in the Python program using the **psycopg** database adapter.
 
+## Requeriments
+```
+- python >= 3.6
+- PostgreSQL 15.0
+```
+
 ## psycopg
 ```
 mkdir psycopg_test
@@ -48,7 +54,7 @@ psql -U postgres
 
 ### PostgreSQL Python
 
-https://www.postgresqltutorial.com/postgresql-python/
+* https://www.postgresqltutorial.com/postgresql-python/
 
 * [PostgreSQL Python](postgresql-python.md)
 
