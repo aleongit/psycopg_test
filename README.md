@@ -20,17 +20,19 @@ pip install psycopg2
 
 ## postgres
 ```
-.crear database
-postgres=# CREATE DATABASE test;
-
-.llistar databases
-\l o \l+
-
-.crear usuari per la base de dades
+. crear usuari
 CREATE USER usertest WITH PASSWORD 'test1234';
+
+. crear database
+postgres=# CREATE DATABASE test WITH OWNER usertest;
+
+.assignar permisos usuari a la base de dades
 GRANT ALL PRIVILEGES ON DATABASE test to usertest;
 \c test
 GRANT ALL ON schema public TO usertest;
+
+. llistar databases
+\l o \l+
 ```
 
 ## Sample
