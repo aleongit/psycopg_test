@@ -1,7 +1,5 @@
 # PostgreSQL Python: Connect To PostgreSQL Database Server
 
-test
-
 https://www.postgresqltutorial.com/postgresql-python/connect/
 
 Connect to the PostgreSQL database server in the Python program using the **psycopg** database adapter.
